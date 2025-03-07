@@ -1,38 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg text-gray-900">
-    <h2 class="text-3xl font-bold text-pink-600 mb-4 text-center">Edit Your Cute Post ✨</h2>
-    <div class="max-w-2xl mx-auto bg-pink-100 p-6 rounded-lg shadow-md">
-        <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+<div class="container mx-auto my-12 px-4">
+    <!-- Main form container with card design, soft shadows, and professional look -->
+    <div class="card shadow-2xl rounded-3xl p-8 bg-white border border-gray-200">
+        <h2 class="text-center mb-8 text-gray-800 font-semibold text-3xl tracking-wide">Create New Post</h2>
+        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
-            
-            <div class="form-group">
-                <label class="block text-pink-600 font-semibold">Title:</label>
-                <input type="text" name="title" class="w-full p-2 border-2 border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500" value="{{ $post->title }}" required>
+            <!-- Title input with subtle shadows, padding, and modern typography -->
+            <div class="form-group mb-8">
+                <label for="title" class="block text-gray-600 font-medium text-lg">Title:</label>
+                <input type="text" name="title" class="form-control w-full p-4 rounded-lg shadow-sm bg-gray-100 text-gray-700 border border-gray-300 focus:ring-2 focus:ring-lightblue-500 focus:border-lightblue-500" id="title" placeholder="Enter post title" required>
             </div>
-            
-            <div class="form-group">
-                <label class="block text-pink-600 font-semibold">Description:</label>
-                <textarea name="description" class="w-full p-2 border-2 border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500" required>{{ $post->description }}</textarea>
+            <!-- Description textarea with clean design and modern focus effect -->
+            <div class="form-group mb-8">
+                <label for="description" class="block text-gray-600 font-medium text-lg">Description:</label>
+                <textarea name="description" class="form-control w-full p-4 rounded-lg shadow-sm bg-gray-100 text-gray-700 border border-gray-300 focus:ring-2 focus:ring-lightblue-500 focus:border-lightblue-500" id="description" rows="6" placeholder="Enter post description" required></textarea>
             </div>
-            
-            <div class="form-group">
-                <label class="block text-pink-600 font-semibold">Current Image:</label><br>
-                <img src="{{ asset('storage/' . $post->image) }}" class="w-32 h-32 object-cover rounded-lg border-2 border-pink-400 shadow-md">
+            <!-- File input for image with clean design and focus effect -->
+            <div class="form-group mb-8">
+                <label for="image" class="block text-gray-600 font-medium text-lg">Image:</label>
+                <input type="file" name="image" class="form-control-file w-full p-4 rounded-lg bg-gray-100 text-gray-700 border border-gray-300 focus:ring-2 focus:ring-lightblue-500 focus:border-lightblue-500" id="image" required>
             </div>
-            
-            <div class="form-group">
-                <label class="block text-pink-600 font-semibold">New Image (Optional):</label>
-                <input type="file" name="image" class="w-full p-2 border-2 border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500">
-            </div>
-            
-            <div class="text-center space-x-4">
-                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-md">✅ Update</button>
-                <a href="{{ route('posts.index') }}" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full shadow-md">🔙 Back</a>
+            <!-- Buttons section: primary save button with hover effects and smooth transitions -->
+            <div class="flex justify-between gap-4">
+                <button type="submit" class="btn btn-primary px-8 py-4 rounded-xl w-full sm:w-1/2 bg-lightblue-500 text-white font-semibold transition-all duration-300 hover:bg-lightblue-600 hover:shadow-lg">
+                    Save
+                </button>
+                <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary px-8 py-4 rounded-xl w-full sm:w-1/2 bg-white text-lightblue-600 border-2 border-lightblue-300 font-semibold transition-all duration-300 hover:bg-lightblue-50 hover:shadow-md">
+                    Back
+                </a>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    /* Custom Tailwind focus ring color for form elements */
+    .form-control:focus, .form-control-file:focus {
+        outline: none;
+        box-shadow: 0 0 8px rgba(53, 162, 235, 0.3); /* Light blue focus effect */
+    }
+</style>
 @endsection
